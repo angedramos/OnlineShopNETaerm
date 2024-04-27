@@ -1,0 +1,6 @@
+@OnlineShopNET_HostAddress = http://localhost:5096
+
+GET {{OnlineShopNET_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

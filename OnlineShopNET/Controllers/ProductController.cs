@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using OnlineShopNET.Application.DTOs;
 using OnlineShopNET.Domain.Config;
 using OnlineShopNET.Domain.Entities;
@@ -36,7 +37,15 @@ namespace OnlineShopNET.Controllers
             {
                 return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.NULL_TOKEN);
             }
+
             var bearerToken = _jwtService.GetTokenFromHeader(authorizationHeader);
+            var validToken = _jwtService.IsValidJwtToken(bearerToken);
+
+            if (!validToken)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.INVALID_TOKEN);
+            }
+
             var claimsPrincipal = _jwtService.DecodeJwtToken(bearerToken);
             var roleClaim = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value;
             int roleID = int.Parse(roleClaim);
@@ -60,6 +69,12 @@ namespace OnlineShopNET.Controllers
             }
 
             var bearerToken = _jwtService.GetTokenFromHeader(authorizationHeader);
+            var validToken = _jwtService.IsValidJwtToken(bearerToken);
+
+            if (!validToken)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.INVALID_TOKEN);
+            }
             var claimsPrincipal = _jwtService.DecodeJwtToken(bearerToken);
             var roleClaim = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value;
             int roleID = int.Parse(roleClaim);
@@ -104,6 +119,12 @@ namespace OnlineShopNET.Controllers
             }
 
             var bearerToken = _jwtService.GetTokenFromHeader(authorizationHeader);
+            var validToken = _jwtService.IsValidJwtToken(bearerToken);
+
+            if (!validToken)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.INVALID_TOKEN);
+            }
             var claimsPrincipal = _jwtService.DecodeJwtToken(bearerToken);
             var roleClaim = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value;
 
@@ -142,6 +163,12 @@ namespace OnlineShopNET.Controllers
             }
 
             var bearerToken = _jwtService.GetTokenFromHeader(authorizationHeader);
+            var validToken = _jwtService.IsValidJwtToken(bearerToken);
+
+            if (!validToken)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.INVALID_TOKEN);
+            }
             var claimsPrincipal = _jwtService.DecodeJwtToken(bearerToken);
             var roleClaim = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value;
             int roleID = int.Parse(roleClaim);

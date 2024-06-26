@@ -66,5 +66,30 @@ namespace OnlineShopNET.JwtService
             string bearerToken = token.Substring("Bearer ".Length).Trim();
             return bearerToken;
         }
+
+        public bool IsValidJwtToken(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return false;
+            }
+
+            JwtSecurityToken jwtToken;
+            try
+            {
+                jwtToken = new JwtSecurityToken(token);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+
+            if (jwtToken.Header == null || jwtToken.Payload == null || jwtToken.RawSignature == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

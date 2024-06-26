@@ -8,5 +8,6 @@ namespace OnlineShopNET.JwtService
         string GenerateJwtToken(Task<User> user);
         ClaimsPrincipal DecodeJwtToken(string token);
         string GetTokenFromHeader(string token);
+        bool IsValidJwtToken(string token);
     }
 }

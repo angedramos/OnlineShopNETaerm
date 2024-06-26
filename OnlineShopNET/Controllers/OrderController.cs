@@ -32,6 +32,12 @@ namespace OnlineShopNET.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.NULL_TOKEN);
             }
             var bearerToken = _jwtService.GetTokenFromHeader(authorizationHeader);
+            var validToken = _jwtService.IsValidJwtToken(bearerToken);
+
+            if (!validToken)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, Constant_Messages.INVALID_TOKEN);
+            }
             var claimsPrincipal = _jwtService.DecodeJwtToken(bearerToken);
             var roleClaim = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value;
             int roleID = int.Parse(roleClaim);

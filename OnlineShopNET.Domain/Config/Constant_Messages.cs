@@ -3,6 +3,7 @@
     public static class Constant_Messages
     {
         public const string NULL_TOKEN = "Access Token cannot be null";
+        public const string INVALID_TOKEN = "Invalid Token";
         public const string ALLOWED_ADMINS_ONLY = "Admins Only";
         public const string ALLOWED_USERS_ONLY = "Users Only";
         public const string UNLOGGED_USER = "Please log in to perform this operation";
